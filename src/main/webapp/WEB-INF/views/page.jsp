@@ -52,6 +52,9 @@
 	<c:if test="${userFamServ==true}">
 		<%@include file="pickFamServ.jsp" %>
 	</c:if>
+	<c:if test="${singlePack==true} || ${familyPack==true} ">
+		<%@include file="checkout.jsp" %>
+	</c:if>
     <!-- /.container -->
 
     <!-- Footer -->
