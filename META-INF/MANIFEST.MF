@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: bikerental
+Bundle-SymbolicName: bikerental
+Bundle-Version: 1.0.0.qualifier
+Export-Package: com.silverxmary.bikerental.controller,
+ com.silverxmary.bikerental.model,
+ com.silverxmary.bikerental.service

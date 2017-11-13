@@ -1,0 +1,6 @@
+com\silverxmary\bikerental\service\FamilyService.class
+com\silverxmary\bikerental\service\BikeServiceImpl.class
+com\silverxmary\bikerental\controller\BikeRentalController.class
+com\silverxmary\bikerental\model\BikePack.class
+com\silverxmary\bikerental\service\BikeService.class
+com\silverxmary\bikerental\service\FamilyServiceImpl.class
