@@ -11,10 +11,10 @@
 	<form:form action="${contextRoot}/checkFamPack" method="POST"  commandName="famPacksForm">
 	
 	<table>
-	<c:forEach items="${packs}" var="p" varStatus="loop">
+	<c:forEach items="${famPacksForm.bikePacksFam}" var="p" varStatus="loop">
 			<tr>
 				<td>NombrePAcK 
-				<form:select name="nombre-${loop.index+1}" path="nombre" id="nombre-${loop.index+1}">
+				<form:select name="bikePacksFam[${loop.index}].nombre"  path="bikePacksFam[${loop.index}].nombre"  id="bikePacksFam-${loop.index}">
 					<option value="0">Select</option>
 					<option value="1">Pack1</option>
 					<option value="2">Pack2</option>
@@ -22,8 +22,8 @@
 				</form:select></td>
 				<td></td>
 				<td>RentTime -
-				<form:input type="text" id="rentTime-${loop.index+1}" path="rentTime" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
-				<span id="timefrec-${loop.index+1}"></span></td>
+				<form:input type="text" id="bikePacksFam[${loop.index}].rentTime" path="bikePacksFam[${loop.index}].rentTime"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+				<span id="timefrec-${loop.index}"></span></td>
 				
 				<td></td>
 				<td></td>

@@ -11,7 +11,7 @@ import com.silverxmary.bikerental.model.BikePack;
 public class BikeServiceImpl implements BikeService{
 
 	public BikePack bikePack1(String nombre, int time) {
-		BikePack selectPack = new BikePack(nombre,time);
+		BikePack selectPack = new BikePack(nombre,time, false);
 		return selectPack;
 	}
 

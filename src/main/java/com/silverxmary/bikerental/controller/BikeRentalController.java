@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.silverxmary.bikerental.dao.BikeServiceDAO;
 import com.silverxmary.bikerental.model.BikePack;
+import com.silverxmary.bikerental.model.BikePackForm;
 import com.silverxmary.bikerental.service.BikeService;
 
 
@@ -76,10 +77,11 @@ public class BikeRentalController {
 	
 	@RequestMapping(value = {"/check"}, method = RequestMethod.POST)
 	public ModelAndView checkPack(@ModelAttribute("amountPreview")BikePack packForm,  Model model){
-		BikePack selectPack = new BikePack(packForm.getNombre(),(int)packForm.getRentTime());
+		BikePack selectPack = new BikePack(packForm.getNombre(),(int)packForm.getRentTime(),false);
 		//BikePack res = bikeService.bikePack1(packForm.getNombre(),(int)packForm.getRentTime());
 		ModelAndView mv = new ModelAndView("checkout");
 		mv.addObject("nombre",selectPack.getNombre());
+		mv.addObject("singlePack","true");
 		mv.addObject("precio",selectPack.getPrecio());	    		
 		 return mv; 
 
@@ -99,17 +101,16 @@ public class BikeRentalController {
 	@RequestMapping(value = {"/selectPacks"}, method = RequestMethod.GET)
 	public ModelAndView famPack(@RequestParam("choose") String choosed)  {
 		List<BikePack> packs = new ArrayList<BikePack>();
+		BikePackForm  bikePackForm = new BikePackForm();
 		ModelAndView mv = new ModelAndView("page");
 		for (int i = 0;  i < Integer.parseInt(choosed); i++) {
-			packs.add(i, new BikePack());
-			
-			}
-		
+			packs.add(new BikePack());
+			}		
+		bikePackForm.setBikePacksFam(packs);
 		mv.addObject("userFamServ", "true");
 		mv.addObject("service", "4");
 		mv.addObject("title", "Services");
-		mv.addObject("famPacksForm", packs);
-		mv.addObject("packs", packs);
+		mv.addObject("famPacksForm", bikePackForm);
 		return mv;// Statements
 
 	}
@@ -117,13 +118,27 @@ public class BikeRentalController {
 	
 	
 	@RequestMapping(value = {"/checkFamPack"}, method = RequestMethod.POST)
-	public String checkFamPack(@ModelAttribute("page")BikePack packForm,  Model model){
-		BikePack selectPack = new BikePack(packForm.getNombre(),(int)packForm.getRentTime());
-		//BikePack res = bikeService.bikePack1(packForm.getNombre(),(int)packForm.getRentTime());
+	public ModelAndView checkFamPack(@ModelAttribute("page")BikePackForm famPacksForm,  Model model){
+		//BikePack selectPack = new BikePack(packForm.getNombre(),(int)packForm.getRentTime());
+		Double precioFin =0.0;
 		ModelAndView mv = new ModelAndView("checkout");
-		mv.addObject("nombre",selectPack.getNombre());
-		mv.addObject("precio",selectPack.getPrecio());	    		
-		 return "redirect:/"; 
+		List<BikePack> bikePack = famPacksForm.getBikePacksFam();
+		List<BikePack> packs = new ArrayList<BikePack>();
+		BikePackForm  bikePackForm = new BikePackForm();
+		for (BikePack bp : bikePack) {
+			//System.out.printf("%s \t %s \n", bp.getNombre(), bp.getRentTime());
+			BikePack selectPack = new BikePack(bp.getNombre(),(int)bp.getRentTime(),true);
+			precioFin=precioFin+selectPack.getPrecio();
+			packs.add(selectPack);
+		}
+		
+		bikePackForm.setBikePacksFam(packs);
+		mv.addObject("famPacksForm", bikePackForm);
+		mv.addObject("famPack", "true");
+		//ModelAndView mv = new ModelAndView("checkout");
+		mv.addObject("precioFin",precioFin);
+		//mv.addObject("precio",selectPack.getPrecio());	    		
+		 return mv; 
 
 	}	
 		
